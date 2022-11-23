@@ -30,7 +30,7 @@ createUser = (req, res) => {
         .catch(error => {
             return res.status(400).json({
                 error,
-                message: 'Account not created!',
+                message: 'Account already exists!',
             })
         })
 }
@@ -78,44 +78,65 @@ updateUser = async (req, res) => {
 }
 
 deleteUser = async (req, res) => {
-    await User.findOneAndDelete({ _id: req.params.id }, (err, User) => {
+    await User.findOneAndDelete({ _id: req.params.id }, (err, user) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
-        if (!User) {
+        if (!user) {
             return res
                 .status(404)
                 .json({ success: false, error: `User not found` })
         }
-        return res.status(200).json({ success: true, data: User })
+        
+        return res.status(200).json({ success: true, data: user })
     }).clone().catch(err => console.log(err))
 }
 
 getUserById = async (req, res) => {
-    await User.findOne({ _id: req.params.id }, (err, User) => {
+    await User.findOne({ _id: req.params.id }, (err, user) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
-        if (!User) {
+        if (!user) {
             return res
                 .status(404)
                 .json({ success: false, error: `User not found` })
         }
-        return res.status(200).json({ success: true, data: User })
+        return res.status(200).json({ success: true, data: user })
+    }).clone().catch(err => console.log(err))
+}
+
+loginUser = async (req, res) => {
+    const body = req.body
+    await User.findOne({ _id: body._id }, (err, user) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        if (!user || !(bcrypt.compareSync(body.password, user.password))) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Invalid credentials` })
+        }
+        return res.status(200).json({ success: true, data: {
+                username:user._id,
+                role:user.role,
+            } 
+        })
     }).clone().catch(err => console.log(err))
 }
 
 getUsers = async (req, res) => {
-    await User.find({}, (err, Users) => {
+    await User.find({}, (err, users) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
-        if (!Users.length) {
+        
+        if (!users.length) {
             return res
                 .status(404)
                 .json({ success: false, error: `User not found` })
         }
-        return res.status(200).json({ success: true, data: Users })
+        return res.status(200).json({ success: true, data: users })
     }).clone().catch(err => console.log(err))
 }
 
@@ -125,4 +146,5 @@ module.exports = {
     deleteUser,
     getUsers,
     getUserById,
+    loginUser,
 }
