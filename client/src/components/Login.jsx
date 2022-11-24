@@ -2,6 +2,7 @@ import {React, useState} from 'react'
 import "./Login.css"
 import axios from 'axios'
 import { Link, useNavigate } from "react-router-dom";
+const bcrypt = require('bcryptjs')
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -10,15 +11,16 @@ function Login() {
 
   async function loginUser(event){
     event.preventDefault();
-    axios.post(
-      "http://localhost:4000/api/user/login",{
-        "_id":username,
-        "password":password
-      }
+    axios.get( "http://localhost:4000/api/user/get/"+username,
     ).then((res) => {
-      window.localStorage.setItem("user",res.data.data.username);
-      window.localStorage.setItem("role",res.data.data.role);
-      navigate("/", { replace: true });
+      if(bcrypt.compareSync(password, res.data.data.password)){
+        window.localStorage.setItem("user",res.data.data._id);
+        window.localStorage.setItem("role",res.data.data.role);
+        navigate("/", { replace: true });
+      }
+      else{
+        console.log("Invalid credentials");
+      }
     })
     .catch((err) => {
         console.log(err.response.data.message);

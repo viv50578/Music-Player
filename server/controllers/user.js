@@ -106,25 +106,6 @@ getUserById = async (req, res) => {
     }).clone().catch(err => console.log(err))
 }
 
-loginUser = async (req, res) => {
-    const body = req.body
-    await User.findOne({ _id: body._id }, (err, user) => {
-        if (err) {
-            return res.status(400).json({ success: false, error: err })
-        }
-        if (!user || !(bcrypt.compareSync(body.password, user.password))) {
-            return res
-                .status(404)
-                .json({ success: false, error: `Invalid credentials` })
-        }
-        return res.status(200).json({ success: true, data: {
-                username:user._id,
-                role:user.role,
-            } 
-        })
-    }).clone().catch(err => console.log(err))
-}
-
 getUsers = async (req, res) => {
     await User.find({}, (err, users) => {
         if (err) {
@@ -146,5 +127,4 @@ module.exports = {
     deleteUser,
     getUsers,
     getUserById,
-    loginUser,
 }
