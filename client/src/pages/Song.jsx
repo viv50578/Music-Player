@@ -1,5 +1,5 @@
 import {React,useState, useEffect } from 'react';
-import Navbar from './navbar';
+import Navbar from '../components/navbar';
 import axios from 'axios';
 import Grid from "@mui/material/Grid";
 import Box from '@mui/material/Box';

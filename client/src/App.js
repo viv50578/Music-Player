@@ -1,6 +1,6 @@
 import React from 'react'
 import {Route, Routes} from 'react-router-dom'
-import {Login, Home, Signup, User, Song, Artist} from './components' 
+import {Login, Home, Signup, User, Song, Artist} from './pages' 
 
 function App() {
   return (
