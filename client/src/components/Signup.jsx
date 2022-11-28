@@ -25,7 +25,7 @@ function Signup() {
   return (
     <div className="wrapper">
 		<div className="title">
-		   Register
+		   Music
 		</div>
 		<form onSubmit={SignupUser}>
 		   <div className="field">

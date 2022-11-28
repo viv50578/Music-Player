@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -71,6 +71,8 @@ const settings = ['Account Details', 'Liked Songs', 'Dashboard', 'Logout'];
 
 function Navbar(props) {
   const { window } = props;
+  const User=props.user;
+  console.log(User);
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -80,10 +82,48 @@ function Navbar(props) {
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-  const handleCloseUserMenu = () => {
+  const navigate = useNavigate();
+  const handleCloseUserMenu = (page) => {
     setAnchorElUser(null);
+    if(page){
+      if(page['setting']==='Logout'){
+        console.log(User);
+        navigate("/login", {
+          replace: true,
+         });
+      }
+    }
   };
-
+  var tmpbutton=<>
+  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                        <AccountCircleIcon sx={{ fontSize: 43 }} style={{ color: "white" }}></AccountCircleIcon>
+                    </IconButton>
+                    <Menu
+                    sx={{ mt: '45px' }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                    >
+                    {settings.map((setting) => (
+                        <MenuItem key={setting} onClick={ e=> handleCloseUserMenu({setting})}>
+                        <Typography textAlign="center">{setting}</Typography>
+                        </MenuItem>
+                    ))}
+                    </Menu>
+                    </>
+  if(User==="null"){
+    tmpbutton=<Link to ="/login"><Button sx={{ color: '#fff' }}>Login</Button></Link>;
+  }
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
@@ -91,11 +131,13 @@ function Navbar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
+        {navItems.map(([item, item1]) => (
           <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
+            <Link to={item1} >
+              <ListItemButton sx={{ textAlign: 'center' }}>
+                <ListItemText primary={item} />
+              </ListItemButton>
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -147,37 +189,13 @@ function Navbar(props) {
                 </Search>
             </Grid>
             <Grid item xs={2}>
-                <Box sx={{ flexGrow: 0 }}
+              <Box sx={{ flexGrow: 0 }}
                 display="flex"
                 justifyContent="flex-end"
                 alignItems="flex-end"
                 >
-                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <AccountCircleIcon sx={{ fontSize: 43 }} style={{ color: "white" }}></AccountCircleIcon>
-                    </IconButton>
-                    <Menu
-                    sx={{ mt: '45px' }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                    >
-                    {settings.map((setting) => (
-                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                        <Typography textAlign="center">{setting}</Typography>
-                        </MenuItem>
-                    ))}
-                    </Menu>
-                </Box>
+                {tmpbutton}
+              </Box>
             </Grid>
         </Grid>
         </Toolbar>

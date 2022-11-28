@@ -9,6 +9,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  window.localStorage.setItem("user",null);
   async function loginUser(event){
     event.preventDefault();
     axios.get( "http://localhost:4000/api/user/get/"+username,
@@ -19,11 +20,11 @@ function Login() {
         navigate("/", { replace: true });
       }
       else{
-        console.log("Invalid credentials");
+        alert("Invalid credentials");
       }
     })
     .catch((err) => {
-        console.log(err.response.data.message);
+      alert("Invalid credentials");
     });
   }
 
