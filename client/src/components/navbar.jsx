@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {React, useState, useEffect} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -21,6 +21,9 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import Grid from "@mui/material/Grid";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import axios from 'axios';
+import Song from "./song"
+import Artist from "./artist"
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -72,13 +75,14 @@ const settings = ['Account Details', 'Liked Songs', 'Dashboard', 'Logout'];
 function Navbar(props) {
   const { window } = props;
   const User=props.user;
-  console.log(User);
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const ActivePage=props.activePage;
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [pagedata, setpagedata] = useState("");
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -94,6 +98,30 @@ function Navbar(props) {
       }
     }
   };
+  var check="name";
+ 
+  const searchdata = (event)=>{
+    var str=event.target.value;
+    if(str){
+      let temp;
+      temp=pagedata.filter((item)=>{
+        return (item[check].toLowerCase()).includes(str.toLowerCase())
+      })
+      setpagedata(temp);
+    }
+    else{
+      
+        axios.get( "http://localhost:4000/api/"+data+"/get/",
+        ).then((res) => {
+            setpagedata(res.data.data);
+        })
+        .catch((err) => {
+            console.log(err.response.data.message);
+        });
+      
+    }
+  }
+
   var tmpbutton=<>
   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                         <AccountCircleIcon sx={{ fontSize: 43 }} style={{ color: "white" }}></AccountCircleIcon>
@@ -144,8 +172,28 @@ function Navbar(props) {
     </Box>
   );
   const container = window !== undefined ? () => window().document.body : undefined;
-
+  var Body;
+  var data="song";
+  if(ActivePage==="artists"){
+    data="artist";
+  }
+  useEffect(()=>{
+    axios.get( "http://localhost:4000/api/"+data+"/get/",
+    ).then((res) => {
+        setpagedata(res.data.data);
+    })
+    .catch((err) => {
+        console.log(err.response.data.message);
+    });
+  },[])
+  if(ActivePage==="songs"){
+    Body=<Song pageData={pagedata}/>
+  }
+  else if(ActivePage==="artists"){
+    Body=<Artist pageData={pagedata}/>
+  }
   return (
+    <>
     <Box sx={{ display: 'flex', height: "10vh"}}>
       <AppBar component="nav">
         <Toolbar>
@@ -185,6 +233,7 @@ function Navbar(props) {
                     <StyledInputBase
                     placeholder="Search…"
                     inputProps={{ 'aria-label': 'search' }}
+                    onInput={searchdata}
                     />
                 </Search>
             </Grid>
@@ -220,6 +269,9 @@ function Navbar(props) {
       </Box>
       
     </Box>
+    <br/>
+    {Body}
+    </>
   );
 }
 
