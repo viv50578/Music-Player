@@ -9,6 +9,7 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/user' element={<User/>}/>
+        <Route path='/UpdatePassword' element={<UpdatePassword/>}/>
         <Route path='/song' element={<Song/>}/>
         <Route path='/artist' element={<Artist/>}/>
         <Route path='/AdminPanel' element={<AdminPanel/>}/>
