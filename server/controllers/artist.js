@@ -33,7 +33,6 @@ createArtist = (req, res) => {
 
 updateArtist = async (req, res) => {
     const body = req.body
-
     if (!body) {
         return res.status(400).json({
             success: false,
@@ -109,7 +108,7 @@ getArtists = async (req, res) => {
                 .json({ success: false, error: `Artists not found` })
         }
         return res.status(200).json({ success: true, data: artists })
-    }).clone().catch(err => console.log(err))
+    }).sort( { name: 1 } ).clone().catch(err => console.log(err))
 }
 
 

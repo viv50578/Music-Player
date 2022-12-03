@@ -91,10 +91,14 @@ function Navbar(props) {
     setAnchorElUser(null);
     if(page){
       if(page['setting']==='Logout'){
-        console.log(User);
         navigate("/login", {
           replace: true,
          });
+      }
+      if(page['setting']==='Dashboard'){
+        navigate("/admin", {
+          replace: true,
+        });
       }
     }
   };
@@ -110,7 +114,6 @@ function Navbar(props) {
       setpagedata(temp);
     }
     else{
-      
         axios.get( "http://localhost:4000/api/"+data+"/get/",
         ).then((res) => {
             setpagedata(res.data.data);
@@ -187,7 +190,7 @@ function Navbar(props) {
     });
   },[])
   if(ActivePage==="songs"){
-    Body=<Song pageData={pagedata}/>
+    Body=<Song pageData={pagedata} user={User}/>
   }
   else if(ActivePage==="artists"){
     Body=<Artist pageData={pagedata}/>

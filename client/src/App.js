@@ -1,6 +1,6 @@
 import React from 'react'
 import {Route, Routes} from 'react-router-dom'
-import {Login, Home, Signup, User, Song, Artist, AdminPanel, AddSong, AddArtist, Edit} from './pages' 
+import {Login, Home, Signup, User, Song, Artist, Admin} from './pages' 
 
 function App() {
   return (
@@ -9,13 +9,9 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/user' element={<User/>}/>
-        <Route path='/UpdatePassword' element={<UpdatePassword/>}/>
         <Route path='/song' element={<Song/>}/>
         <Route path='/artist' element={<Artist/>}/>
-        <Route path='/AdminPanel' element={<AdminPanel/>}/>
-        <Route path='/addsong' element={<AddSong/>}/>
-        <Route path='/addartist' element={<AddArtist/>}/>
-        <Route path='/AdminPanel/Edit' element={<Edit/>}/>
+        <Route path='/admin' element={<Admin/>}/>
         <Route path='/*' element={<Home/>}/>
       </Routes>
     </div>

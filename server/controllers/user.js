@@ -58,8 +58,17 @@ updateUser = async (req, res) => {
             user.password = bcrypt.hashSync(body.passsword, bcrypt.genSaltSync(saltRounds));
         if(body.role)
             user.role = body.role
-        if(body.favourites)
-            user.favourites=body.favourites
+        if(body.addfavourite)
+            user.favourites.push(body.addfavourite)
+        if(body.removefavourite){
+            user.favourites=user.favourites.filter(function(item) {
+                console.log(item._id.toString());
+                return item._id.toString() !== body.removefavourite
+            })
+        }
+
+        console.log(body.removefavourite);
+        console.log(user.favourites);
         user.save()
             .then(() => {
                 return res.status(200).json({
