@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import EditArtist from '../components/editArtist';
 import CloseIcon from '@mui/icons-material/Close';
+import Homenavbar from '../components/homenavbar';
 
 var columns;
 var rows;
@@ -117,6 +118,7 @@ export default function Admin() {
   return (
     
     <div className='bg-primary w-screen h-screen'>
+        <Homenavbar User={window.localStorage.getItem("user")}/>
         <Grid container spacing={2}>
             <Grid item xs={6}>    
             <FormControl>

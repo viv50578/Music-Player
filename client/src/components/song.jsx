@@ -130,7 +130,7 @@ function Song(props) {
   return (
     <>
     <div>
-            <Grid id="tmp" container spacing={2} className="justify-center">
+            <Grid id="tmp" container spacing={1} className="justify-center">
                 {songdata.length>0 && songdata.map(room => 
                 <Grid item key={room['_id']} xs ={4} md={2} style={{textAlign: "center"}}>
                     <Button onClick={e => handleOpen(room['songURL'], room['_id'])}>

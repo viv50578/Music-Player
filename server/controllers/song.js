@@ -145,7 +145,22 @@ getSongsByLikes = async (req, res) => {
                 .json({ success: false, error: `Songs not found` })
         }
         return res.status(200).json({ success: true, data: songs })
-    }).sort( { likes: -1 } ).clone().catch(err => console.log(err))
+    }).sort( { likes: -1 } ).limit( 5 ).clone().catch(err => console.log(err))
+}
+
+getSongsByViews = async (req, res) => {
+    Song.find({}, (err, songs) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        
+        if (!songs.length) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Songs not found` })
+        }
+        return res.status(200).json({ success: true, data: songs })
+    }).sort( { views: -1 } ).limit( 5 ).clone().catch(err => console.log(err))
 }
 
 module.exports = {
@@ -155,5 +170,6 @@ module.exports = {
     getSongById,
     getSongs,
     getSongsByLikes,
+    getSongsByViews,
     getSongsByArtist,
 }
