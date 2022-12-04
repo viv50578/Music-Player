@@ -3,6 +3,7 @@ import Homenavbar from '../components/homenavbar';
 import axios from 'axios';
 import Divider from '@mui/material/Divider';
 import Song from '../components/song';
+import '../index.css';
 
 function Home() {
 	const User=window.localStorage.getItem("user");
@@ -25,13 +26,15 @@ function Home() {
 			});
 	},[])
   return (
-    <div className='bg-primary w-screen'>
+    <div className='bg-primary w-screen' style={{height: '100vh'}}>
+	  <div className="font-link">
       <Homenavbar user={User}/>
 	  Top Viewed:<br/>
 	  <Song pageData={topViewed} user={User}/>
 	  <Divider/>
 	  Top Liked:<br/>
 	  <Song pageData={topLiked} user={User}/>
+	  </div>
     </div>
   )
 }
