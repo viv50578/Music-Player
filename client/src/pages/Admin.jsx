@@ -12,8 +12,11 @@ import Button from "@mui/material/Button"
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import EditArtist from '../components/editArtist';
+import EditSong from '../components/editSong';
 import CloseIcon from '@mui/icons-material/Close';
 import Homenavbar from '../components/homenavbar';
+import { Link, useNavigate } from "react-router-dom";
+import { Typography } from '@mui/material';
 
 var columns;
 var rows;
@@ -27,6 +30,8 @@ export default function Admin() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     var rowdata=[];
+    var editdata=<EditArtist data={currEdit}/>;
+    const navigate = useNavigate();
     
     const handleChange = (event) => {
         setValue(event.target.value);
@@ -38,6 +43,25 @@ export default function Admin() {
     function change(event){
         handleOpen();
         seteditdata(event);
+    }
+    function del(event){
+        if(!window.confirm("Do you want to delete this entry?")){
+            return;
+        }
+        if(value==="song"){
+            axios.delete( "http://localhost:4000/api/song/delete/"+event,
+            ).then((res) => {
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err.response.data.message);
+            });
+        }
+        console.log(event);
+    }
+    function update(){
+        window.localStorage.setItem("add",value);
+        navigate("/add", { replace: false });
     }
     axios.get( "http://localhost:4000/api/artist/get/",
     ).then((res) => {
@@ -71,27 +95,29 @@ export default function Admin() {
                 { field: 'id', headerName: 'ID', width: 70, },
                 { field: 'name', headerName: 'Name', width: 130, },
                 { field: 'imageURL', headerName: 'Image', width: 70, 
-                renderCell: (params) => <img src={params.value} />},
+                renderCell: (params) => <img alt="artist" src={params.value} />},
                 { field: 'action', headerName: 'Action', width: 130,
                 renderCell: (params) =><>
                 <Button onClick={e=>change(params.value)}><EditIcon/></Button>
-                <Button onClick={e=>change(params.value)}><DeleteIcon/></Button></>},
+                <Button onClick={e=>del(params.value)}><DeleteIcon/></Button></>},
             ];
             rowdata=artistdata;
+            editdata=<EditArtist data={currEdit}/>;
         }
         else{
             columns=[
                 { field: 'id', headerName: 'ID', width: 70, },
                 { field: 'name', headerName: 'Name', width: 130,},
                 { field: 'imageURL', headerName: 'Image', width: 70,
-                renderCell: (params) => <img src={params.value}/>},
+                renderCell: (params) => <img alt="song" src={params.value}/>},
                 { field: 'songURL', headerName: 'Song', width: 130,},
                 { field: 'action', headerName: 'Action', width: 160,
                 renderCell: (params) =><>
                 <Button onClick={e=>change(params.value)}><EditIcon/></Button>
-                <Button onClick={e=>change(params.value)}><DeleteIcon/></Button></>}
+                <Button onClick={e=>del(params.value)}><DeleteIcon/></Button></>}
               ];
               rowdata=songdata;
+              editdata=<EditSong data={currEdit}/>;
         }
         rows=[];
         for(let i=0;i<rowdata.length;i++){
@@ -114,7 +140,7 @@ export default function Admin() {
             rowsPerPageOptions={[5]}
             sx={style1}
         />
-        }
+    }
   return (
     
     <div className='bg-primary w-screen h-screen'>
@@ -134,7 +160,7 @@ export default function Admin() {
             </FormControl>
             </Grid>
             <Grid item xs={6}>
-                <Button variant="contained">Add New</Button>
+                <Button onClick={update} variant="contained">Add New</Button>
             </Grid>
         </Grid>
         {element}
@@ -146,14 +172,16 @@ export default function Admin() {
             >
             <Box sx={style}>
                 <Box display="flex" alignItems="center">
-                    <Box flexGrow={1} textAlign={'center'}>Edit</Box>
+                    <Box flexGrow={1} textAlign={'center'}>
+                        <Typography component="h1" variant="h5">Edit</Typography>
+                    </Box>
                     <Box>
                         <Button onClick={handleClose}>
                             <CloseIcon />
                         </Button>
                     </Box>
                 </Box>
-                <EditArtist data={currEdit}/>
+                {editdata}
             </Box>
         </Modal>
     </div>

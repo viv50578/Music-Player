@@ -9,6 +9,7 @@ createSong = (req, res) => {
             error: 'You must provide an Song',
         })
     }
+    console.log(body);
     const song = new Song(body)
     song['views']=0
     song['likes']=0

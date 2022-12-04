@@ -100,6 +100,11 @@ function Navbar(props) {
           replace: true,
         });
       }
+      if(page['setting']==='Account Details'){
+        navigate("/user", {
+          replace: false,
+        });
+      }
     }
   };
   var check="name";
@@ -211,7 +216,7 @@ function Navbar(props) {
                 >
                     <MenuIcon />
                 </IconButton>
-                <Avatar variant={"rounded"} alt="Logo" src={"./logo1.jpg"} style={{
+                <Avatar variant={"rounded"} alt="Logo" src={require('../logo.png')} style={{
                     height: "100%",
                 }} 
                 sx={{ display: { xs: 'none', sm: 'block' } }}

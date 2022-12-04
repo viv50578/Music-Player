@@ -76,7 +76,6 @@ function Song(props) {
                 console.log(err.response.data.message);
             })
         }
-        console.log(userLike.filter((element) => element!== songId));
     };
     const alertClose = (event, reason) => {
         if (reason === 'clickaway') {
