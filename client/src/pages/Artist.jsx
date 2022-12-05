@@ -5,7 +5,7 @@ function Artist() {
     const User=window.localStorage.getItem("user");
 
   return (
-    <div className='bg-primary w-screen h-screen'>
+    <div className='bg-primary'>
         <Navbar user={User} activePage="artists" role={window.localStorage.getItem("role")}/>
     </div>
   )
