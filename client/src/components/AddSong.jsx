@@ -96,7 +96,7 @@ function AddSong() {
             </MenuItem>
           ))}
         </Select>
-        <Button fullWidth variant ="contained" type="submit">Save</Button>
+        <Button sx={{mt:1}} fullWidth variant ="contained" type="submit">Save</Button>
       </form>
       </Container>
     </div>

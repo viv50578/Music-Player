@@ -28,7 +28,7 @@ function Home() {
   return (
     <div className='bg-primary w-screen'>
 	  <div className="font-link">
-      <Homenavbar user={User}/>
+      <Homenavbar user={User} role={window.localStorage.getItem("role")}/>
 	  Top Viewed:<br/>
 	  <Song pageData={topViewed} user={User}/>
 	  <Divider/>

@@ -3,10 +3,15 @@ import Homenavbar from '../components/homenavbar';
 import axios from 'axios';
 import Song from '../components/song';
 import '../index.css';
+import { useNavigate } from "react-router-dom";
 
 function Liked() {
     const User=window.localStorage.getItem("user");
     console.log(User);
+    const navigate=useNavigate();
+    if(!User || User==="null"){
+        navigate("/", { replace: true });
+    }
 	const [userLiked, setuserLiked] = useState([]);
     const [songdata, setsongdata] = useState([]);
     var pagedata=[];
@@ -36,7 +41,7 @@ function Liked() {
     }
   return (
     <div className='bg-primary w-screen h-screen'>
-    <Homenavbar/>
+    <Homenavbar role={window.localStorage.getItem("role")}/>
     <Song pageData={pagedata} user={User}/>
     </div>
   )
