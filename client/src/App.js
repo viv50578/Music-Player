@@ -1,6 +1,6 @@
 import React from 'react'
 import {Route, Routes} from 'react-router-dom'
-import {Login, Home, Signup, User, Song, Artist, Admin} from './pages' 
+import {Login, Home, Signup, User, Song, Artist, Admin, Add} from './pages' 
 
 function App() {
   return (
@@ -12,6 +12,7 @@ function App() {
         <Route path='/song' element={<Song/>}/>
         <Route path='/artist' element={<Artist/>}/>
         <Route path='/admin' element={<Admin/>}/>
+        <Route path='/add' element={<Add/>}/>
         <Route path='/*' element={<Home/>}/>
       </Routes>
     </div>

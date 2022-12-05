@@ -6,6 +6,7 @@ function Artist(props) {
   return (
 
         <div>
+            <span className="font-link">
             <Grid id="tmp" container spacing={2} className="justify-center">
                 {artistdata.length>0 && artistdata.map(room => 
                 <Grid item key={room['_id']} xs ={4} md={2} style={{textAlign: "center"}}>
@@ -14,6 +15,7 @@ function Artist(props) {
                 </Grid>
                 )}
             </Grid>
+            </span>
         </div>
 
   )

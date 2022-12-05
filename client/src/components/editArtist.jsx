@@ -1,7 +1,6 @@
 import React from 'react';
-import Grid from "@mui/material/Grid";
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import TextField from '@mui/joy/TextField';
 import axios from 'axios' 
 
 function EditArtist(props) {
@@ -33,23 +32,12 @@ function EditArtist(props) {
         }    
     }
     return (
-        <form onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-            <Grid item xs={12}>
-                <label>Name: </label>
-               <TextField id="name" variant="outlined" />
-            </Grid>
-            <Grid item xs={12}>
-                <label>Image URL: </label>
-                <TextField id="imgURL" variant="outlined" />
-            </Grid>
-            <Grid item xs={12}>
-                <Button variant='outlined' type="submit" className="btn btn-primary">
-                    <span className="spinner-border spinner-border-sm mr-1"></span>
-                    Save
-                </Button>
-            </Grid>
-        </Grid>
+        <form onSubmit={handleSubmit} sx={{justifyContent: 'center'}}>
+            <TextField label="Name" id="name" variant="outlined"/>
+            <TextField label="Image URL" id="imgURL" variant="outlined" />
+            <Button fullWidth variant='outlined' type="submit" className="btn btn-primary">
+                Save
+            </Button>
         </form>
     )
 }

@@ -50,6 +50,11 @@ function Homenavbar(props) {
           replace: true,
         });
       }
+      if(page['setting']==='Account Details'){
+        navigate("/user", {
+          replace: false,
+        });
+      }
     }
 };
 
@@ -119,7 +124,7 @@ const drawer = (
                 >
                     <MenuIcon />
                 </IconButton>
-                <Avatar variant={"rounded"} alt="Logo" src={"./logo1.jpg"} style={{
+                <Avatar variant={"rounded"} alt="Logo" src={require("../logo.png")} style={{
                     height: "100%",
                 }} 
                 sx={{ display: { xs: 'none', sm: 'block' } }}
