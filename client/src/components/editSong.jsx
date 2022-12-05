@@ -110,6 +110,7 @@ function EditSong(props) {
           onChange={handleChange}
           input={<OutlinedInput label="Name" />}
           MenuProps={MenuProps}
+          sx={{ width:"100%"}}
         >
           {pagedata.map((data) => (
             <MenuItem 

@@ -26,7 +26,7 @@ function Home() {
 			});
 	},[])
   return (
-    <div className='bg-primary w-screen'>
+    <div className='bg-primary h-screen overflow-auto'>
 	  <div className="font-link">
       <Homenavbar user={User} role={window.localStorage.getItem("role")}/>
 	  Top Viewed:<br/>
