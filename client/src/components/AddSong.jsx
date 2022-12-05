@@ -7,7 +7,8 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { useTheme } from '@mui/material/styles';
 import Select from '@mui/material/Select';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Container from '@mui/material/Container';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -69,12 +70,13 @@ function AddSong() {
   }
   return(
     <div>
+      <Container maxWidth="xs">
       <form onSubmit={add}>
         <TextField id="name" label="Name" variant="outlined" required/>
         <TextField id="imgURL" label="Image URL" variant="outlined" required/>
         <TextField id="songURL" label="Song URL" variant="outlined" required/>
         <InputLabel id="demo-multiple-name-label">Artists</InputLabel>
-        <Select
+        < Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
           multiple
@@ -82,6 +84,7 @@ function AddSong() {
           onChange={handleChange}
           input={<OutlinedInput label="Name" />}
           MenuProps={MenuProps}
+          sx={{ width:"100%"}}
         >
           {pagedata.map((data) => (
             <MenuItem
@@ -93,8 +96,9 @@ function AddSong() {
             </MenuItem>
           ))}
         </Select>
-        <Button variant ="contained" type="submit">Save</Button>
+        <Button fullWidth variant ="contained" type="submit">Save</Button>
       </form>
+      </Container>
     </div>
     );
 }

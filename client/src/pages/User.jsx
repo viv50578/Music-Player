@@ -3,6 +3,7 @@ import axios from 'axios'
 import Homenavbar from '../components/homenavbar';
 import TextField from '@mui/joy/TextField';
 import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
 const bcrypt = require('bcryptjs')
 
 function User() {
@@ -47,14 +48,16 @@ function User() {
   return (
     <div className='bg-primary w-screen h-screen'>
       <Homenavbar/>
-      <form onSubmit={change}>
-        <TextField label="Username" placeholder={User} disabled variant="outlined"/>
-        <TextField id="email" label="Email" placeholder={data['email']} variant="outlined"/>
-        <TextField id="currPass" label="Current Password" type="password" variant="outlined" required/>
-        <TextField id="newPass" label="New Password" type="password" variant="outlined"/>
-        <TextField label="Confirm New Password" type="password" variant="outlined"/>
-        <Button variant ="contained" type="submit">Save</Button>
-      </form>
+      <Container maxWidth="xs">
+        <form onSubmit={change}>
+          <TextField label="Username" placeholder={User} disabled variant="outlined"/>
+          <TextField id="email" label="Email" placeholder={data['email']} variant="outlined"/>
+          <TextField id="currPass" label="Current Password" type="password" variant="outlined" required/>
+          <TextField id="newPass" label="New Password" type="password" variant="outlined"/>
+          <TextField label="Confirm New Password" type="password" variant="outlined"/>
+          <Button fullWidth variant ="contained" type="submit">Save</Button>
+        </form>
+      </Container>
     </div>
   )
 }

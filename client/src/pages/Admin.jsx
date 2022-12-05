@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import {React, useState, useEffect} from 'react';
 import {DataGrid} from '@mui/x-data-grid';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -15,8 +15,9 @@ import EditArtist from '../components/editArtist';
 import EditSong from '../components/editSong';
 import CloseIcon from '@mui/icons-material/Close';
 import Homenavbar from '../components/homenavbar';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Typography } from '@mui/material';
+import {Container} from '@mui/material';
 
 var columns;
 var rows;
@@ -57,27 +58,51 @@ export default function Admin() {
                 console.log(err.response.data.message);
             });
         }
-        console.log(event);
+        else{
+            let flag=true;
+            for(let i =0;i<songdata.length;i++){
+                for(let j = 0;j<songdata[i]['artists'].length;j++){
+                    if(event===songdata[i]['artists'][j]){
+                        flag=false;
+                    }
+                }
+            }
+            if(flag){
+                axios.delete( "http://localhost:4000/api/artist/delete/"+event,
+                ).then((res) => {
+                    console.log(res.data);
+                })
+                .catch((err) => {
+                    console.log(err.response.data.message);
+                });
+            }
+            else{
+                alert("This artist has a song.");
+            }
+        }
     }
     function update(){
         window.localStorage.setItem("add",value);
         navigate("/add", { replace: false });
     }
-    axios.get( "http://localhost:4000/api/artist/get/",
-    ).then((res) => {
-        setartistdata(res.data.data);
-    })
-    .catch((err) => {
-        console.log(err.response.data.message);
-    });
+    useEffect(()=>{
+        axios.get( "http://localhost:4000/api/artist/get/",
+        ).then((res) => {
+            setartistdata(res.data.data);
+        })
+        .catch((err) => {
+            console.log(err.response.data.message);
+        });
 
-    axios.get( "http://localhost:4000/api/song/get/",
-    ).then((res) => {
-        setsongdata(res.data.data);
-    })
-    .catch((err) => {
-        console.log(err.response.data.message);
-    });
+        axios.get( "http://localhost:4000/api/song/get/",
+        ).then((res) => {
+            setsongdata(res.data.data);
+        })
+        .catch((err) => {
+            console.log(err.response.data.message);
+        });
+    },[])
+    
     const style = {
         position: 'absolute',
         top: '50%',
@@ -110,7 +135,6 @@ export default function Admin() {
                 { field: 'name', headerName: 'Name', width: 130,},
                 { field: 'imageURL', headerName: 'Image', width: 70,
                 renderCell: (params) => <img alt="song" src={params.value}/>},
-                { field: 'songURL', headerName: 'Song', width: 130,},
                 { field: 'action', headerName: 'Action', width: 160,
                 renderCell: (params) =><>
                 <Button onClick={e=>change(params.value)}><EditIcon/></Button>
@@ -145,7 +169,8 @@ export default function Admin() {
     
     <div className='bg-primary w-screen h-screen'>
         <Homenavbar User={window.localStorage.getItem("user")}/>
-        <Grid container spacing={2}>
+        <Container maxWidth="sm">
+        <Grid container spacing={2} >
             <Grid item xs={6}>    
             <FormControl>
                 <RadioGroup
@@ -164,6 +189,7 @@ export default function Admin() {
             </Grid>
         </Grid>
         {element}
+        </Container>
         <Modal
             open={open}
             onClose={handleClose}

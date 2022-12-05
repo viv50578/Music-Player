@@ -97,7 +97,7 @@ function EditSong(props) {
         }
     }
   return (
-    <form onSubmit={handleSubmit} sx={{justifyContent: 'center'}}>
+    <form onSubmit={handleSubmit} sx={{justifyContent: 'center',ml:2, mr:2}}>
         <TextField label="Name" id="name" variant="outlined"/>
         <TextField label="Image URL" id="imgURL" variant="outlined"/>
         <TextField label="Song URL" id="songURL" variant="outlined" />
@@ -112,7 +112,7 @@ function EditSong(props) {
           MenuProps={MenuProps}
         >
           {pagedata.map((data) => (
-            <MenuItem
+            <MenuItem 
               key={data._id}
               value={data._id}
               style={getStyles(data.name, artistName, theme)}
@@ -121,7 +121,7 @@ function EditSong(props) {
             </MenuItem>
           ))}
         </Select>
-        <Button fullWidth variant='outlined' type="submit" className="btn btn-primary">
+        <Button sx={{mt:1}} fullWidth variant='outlined' type="submit" className="btn btn-primary">
             Save
         </Button>
     </form>

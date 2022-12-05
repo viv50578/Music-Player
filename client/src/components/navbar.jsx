@@ -70,11 +70,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const drawerWidth = 240;
 const navItems = [['Home','/'], ['All Songs','/song'], ['Artists','/artist']];
-const settings = ['Account Details', 'Liked Songs', 'Dashboard', 'Logout'];
+var settings = ['Account Details', 'Liked Songs', 'Dashboard', 'Logout'];
 
 function Navbar(props) {
   const { window } = props;
   const User=props.user;
+  if(props.role!=="admin"){
+    settings = ['Account Details', 'Liked Songs', 'Logout'];
+  }
   const ActivePage=props.activePage;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [pagedata, setpagedata] = useState("");
@@ -102,6 +105,11 @@ function Navbar(props) {
       }
       if(page['setting']==='Account Details'){
         navigate("/user", {
+          replace: false,
+        });
+      }
+      if(page['setting']==='Liked Songs'){
+        navigate("/liked", {
           replace: false,
         });
       }

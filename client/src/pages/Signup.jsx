@@ -1,12 +1,13 @@
 import {React, useState} from 'react'
 import "./Login.css"
 import axios from 'axios'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Signup() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     async function SignupUser(event){
         event.preventDefault();
@@ -17,6 +18,7 @@ function Signup() {
         })
         .then((res) => {
             console.log(res);
+            navigate("/login", { replace: true });
         })
         .catch((err) => {
             console.log(err.response.data.message);

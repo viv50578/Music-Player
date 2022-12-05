@@ -26,7 +26,7 @@ function Home() {
 			});
 	},[])
   return (
-    <div className='bg-primary w-screen' style={{height: '100vh'}}>
+    <div className='bg-primary w-screen'>
 	  <div className="font-link">
       <Homenavbar user={User}/>
 	  Top Viewed:<br/>

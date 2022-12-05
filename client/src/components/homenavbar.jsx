@@ -22,11 +22,14 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const drawerWidth = 240;
 const navItems = [['Home','/'], ['All Songs','/song'], ['Artists','/artist']];
-const settings = ['Account Details', 'Liked Songs', 'Dashboard', 'Logout'];
+var settings = ['Account Details', 'Liked Songs', 'Dashboard', 'Logout'];
 
 function Homenavbar(props) {
   const { window } = props;
   const User=props.user;
+  if(props.role!=="admin"){
+    settings = ['Account Details', 'Liked Songs', 'Logout'];
+  }
   const [mobileOpen, setMobileOpen] = useState(false);
   
   const handleDrawerToggle = () => {
@@ -52,6 +55,11 @@ function Homenavbar(props) {
       }
       if(page['setting']==='Account Details'){
         navigate("/user", {
+          replace: false,
+        });
+      }
+      if(page['setting']==='Liked Songs'){
+        navigate("/liked", {
           replace: false,
         });
       }

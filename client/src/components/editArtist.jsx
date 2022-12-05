@@ -35,7 +35,7 @@ function EditArtist(props) {
         <form onSubmit={handleSubmit} sx={{justifyContent: 'center'}}>
             <TextField label="Name" id="name" variant="outlined"/>
             <TextField label="Image URL" id="imgURL" variant="outlined" />
-            <Button fullWidth variant='outlined' type="submit" className="btn btn-primary">
+            <Button sx={{mt:1}} fullWidth variant='outlined' type="submit" className="btn btn-primary">
                 Save
             </Button>
         </form>
