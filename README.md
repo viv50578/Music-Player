@@ -1,4 +1,4 @@
-# Title
+# Musicily
 Music App - Music Streaming Platform
 
 # Problem Statement
@@ -69,7 +69,6 @@ MERN
 
 # Functionalities
 - Login/Register
-- View Music by Artist
 - Search for Music
 - Play, pause and skip Music
 - Like Music
@@ -99,3 +98,12 @@ Fontawesom<br />
 emotion<br />
 mui<br />
 cors<br />
+
+<h1 id="output">Output</h1>
+
+All Songs
+
+<img src="./client/public/AllSongs.png" alt="accessibility text"><br>
+
+Admin Panel
+<img src="./client/public/AdminPanel.png" alt="accessibility text">

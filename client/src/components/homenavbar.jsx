@@ -132,7 +132,7 @@ const drawer = (
                 >
                     <MenuIcon />
                 </IconButton>
-                <Avatar variant={"rounded"} alt="Logo" src={require("../logo1.png")} style={{
+                <Avatar variant={"rounded"} alt="Logo" src={require("../logo.png")} style={{
                     height: "100%",
                 }} 
                 sx={{ display: { xs: 'none', sm: 'block' } }}

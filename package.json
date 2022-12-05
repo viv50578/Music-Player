@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "@mui/joy": "^5.0.0-alpha.56"
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/joy": "^5.0.0-alpha.56",
+    "@mui/material": "^5.10.16"
   }
 }
