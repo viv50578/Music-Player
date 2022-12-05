@@ -10,6 +10,7 @@ function Login() {
   const navigate = useNavigate();
 
   window.localStorage.setItem("user",null);
+  window.localStorage.setItem("role",null);
   async function loginUser(event){
     event.preventDefault();
     axios.get( "http://localhost:4000/api/user/get/"+username,
@@ -29,6 +30,7 @@ function Login() {
   }
 
   return (
+    <div className="body">
     <div className="wrapper">
       <div className="title">
         Music
@@ -55,6 +57,7 @@ function Login() {
           <p> Don't have an account?  <Link to="/signup" >Sign Up</Link></p>
         </div>
       </form>
+    </div>
     </div>
   )
 }

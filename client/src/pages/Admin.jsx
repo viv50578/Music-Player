@@ -32,7 +32,11 @@ export default function Admin() {
     const handleClose = () => setOpen(false);
     var rowdata=[];
     var editdata=<EditArtist data={currEdit}/>;
+    const Role=window.localStorage.getItem("role");
     const navigate = useNavigate();
+    if(Role!=="admin"){
+      navigate("/", { replace: true });
+    }
     
     const handleChange = (event) => {
         setValue(event.target.value);
@@ -168,7 +172,7 @@ export default function Admin() {
   return (
     
     <div className='bg-primary w-screen h-screen'>
-        <Homenavbar User={window.localStorage.getItem("user")}/>
+        <Homenavbar User={window.localStorage.getItem("user")} role={window.localStorage.getItem("role")}/>
         <Container maxWidth="sm">
         <Grid container spacing={2} >
             <Grid item xs={6}>    

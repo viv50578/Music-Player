@@ -4,7 +4,7 @@ import {Login, Home, Signup, User, Song, Artist, Admin, Add, Liked} from './page
 
 function App() {
   return (
-    <div className="flex justify-center items-center">
+    <div className="bg-primary w-screen h-screen flex justify-center items-center">
       <Routes>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>

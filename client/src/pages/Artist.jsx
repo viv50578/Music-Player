@@ -6,7 +6,7 @@ function Artist() {
 
   return (
     <div className='bg-primary w-screen h-screen'>
-        <Navbar user={User} activePage="artists"/>
+        <Navbar user={User} activePage="artists" role={window.localStorage.getItem("role")}/>
     </div>
   )
 }

@@ -99,7 +99,7 @@ if(User==="null"){
 const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+      Muscily
       </Typography>
       <Divider />
       <List>
@@ -132,7 +132,7 @@ const drawer = (
                 >
                     <MenuIcon />
                 </IconButton>
-                <Avatar variant={"rounded"} alt="Logo" src={require("../logo.png")} style={{
+                <Avatar variant={"rounded"} alt="Logo" src={require("../logo1.png")} style={{
                     height: "100%",
                 }} 
                 sx={{ display: { xs: 'none', sm: 'block' } }}
