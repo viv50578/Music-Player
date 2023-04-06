@@ -82,7 +82,7 @@ MERN
 
 # Future Scope
 In the future, we can implement Filtering of music based on genre and release date.<br />
-Recommend users music as per their listining history.<br />
+Recommend users music as per their listening history.<br />
 Let users create personalized playlists.<br />
 
 # Technologies Used
